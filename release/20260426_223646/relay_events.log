@@ -1,0 +1,2 @@
+2026-04-26 22:36:46  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM8  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 22:36:46  SERIAL DOWN: COM8 unavailable, running fail-safe OFF

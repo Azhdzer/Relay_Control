@@ -1,0 +1,11 @@
+Session logs: D:\Sterowanie zasilaniem\release\logs\20260426_204714
+Resetting port COM6...
+Reset attempt 1/3: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+Reset attempt 2/3: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+Reset attempt 3/3: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+Port reset failed — try unplugging USB
+=== Starting script ===
+2026-04-26 20:47:20  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:47:20  INFO     Events log : D:\Sterowanie zasilaniem\release\logs\20260426_204714\relay_events.log
+=== Script exited ===
+Log copied to clipboard.

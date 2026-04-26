@@ -1,0 +1,18 @@
+2026-04-26 20:47:20  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:47:20  INFO     Events log : D:\Sterowanie zasilaniem\release\logs\20260426_204714\relay_events.log
+2026-04-26 20:47:20  INFO     Debug log  : D:\Sterowanie zasilaniem\release\logs\20260426_204714\relay_debug.log
+2026-04-26 20:47:20  INFO     Poll every : 30 s
+2026-04-26 20:47:20  WARNING  Serial open attempt 1/5 failed: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31) - retrying in 3s
+2026-04-26 20:47:23  WARNING  Serial open attempt 2/5 failed: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31) - retrying in 3s
+2026-04-26 20:47:26  WARNING  Serial open attempt 3/5 failed: could not open port 'COM6': FileNotFoundError(2, 'Не удается найти указанный файл.', None, 2) - retrying in 3s
+2026-04-26 20:47:30  INFO     Serial opened: COM6 @ 9600 baud
+2026-04-26 20:47:30  INFO     Hold timer armed until 21:02:30
+2026-04-26 20:47:30  INFO     [EVENT] ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 20:47:30  INFO     poll#1  RELAY=ON   on_for=0h 00m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:48:00  INFO     poll#2  RELAY=ON   on_for=0h 00m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:48:30  INFO     poll#3  RELAY=ON   on_for=0h 01m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:49:00  INFO     poll#4  RELAY=ON   on_for=0h 01m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:49:30  INFO     poll#5  RELAY=ON   on_for=0h 02m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:50:00  INFO     poll#6  RELAY=ON   on_for=0h 02m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:50:30  INFO     poll#7  RELAY=ON   on_for=0h 03m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:51:00  INFO     poll#8  RELAY=ON   on_for=0h 03m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min

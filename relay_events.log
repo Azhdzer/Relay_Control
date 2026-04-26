@@ -1,0 +1,43 @@
+2026-04-26 17:09:34  === SESSION START ===  file=C:\Users\Artsiom\Desktop\2026-04-17 16.00_99.txt  port=COM6  roztdp<0.35  stable>2.0h
+2026-04-26 19:49:12  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_on.txt  port=COM6  roztdp<0.35  stable>2.0h
+2026-04-26 19:49:14  ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 19:51:34  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_on.txt  port=COM6  roztdp<0.35  stable>2.0h
+2026-04-26 19:51:34  === SESSION ABORTED: cannot open serial port ===
+2026-04-26 19:51:49  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_on.txt  port=COM6  roztdp<0.35  stable>2.0h
+2026-04-26 19:51:51  ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 20:04:53  OFF  #001  duration=0h 13m 01s  total_ON_session=0h 13m  | script stopped
+2026-04-26 20:04:53  === SESSION END ===
+2026-04-26 20:04:55  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:04:55  === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:05:01  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:05:01  === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:06:39  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:06:39  === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:07:07  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:07:07  === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:07:12  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:07:12  === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:09:16  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:09:18  ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 20:09:37  OFF  #001  duration=0h 00m 19s  total_ON_session=0h 00m  | script stopped
+2026-04-26 20:09:37  === SESSION END ===
+2026-04-26 20:10:17  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:10:17  === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:11:48  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:11:50  ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 20:12:57  OFF  #001  duration=0h 01m 07s  total_ON_session=0h 01m  | script stopped
+2026-04-26 20:12:57  === SESSION END ===
+2026-04-26 20:13:00  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:13:00  === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:13:06  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:13:06  === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:13:26  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:13:28  ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 20:13:34  OFF  #001  duration=0h 00m 05s  total_ON_session=0h 00m  | script stopped
+2026-04-26 20:13:34  === SESSION END ===
+2026-04-26 20:13:35  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:13:35  === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:20:58  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:21:10  === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:21:25  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:21:27  ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28

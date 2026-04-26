@@ -1,0 +1,79 @@
+Session logs: D:\Sterowanie zasilaniem\release\20260426_220524
+[STEP] Checking and freeing port COM8...
+Port COM8 detected. Worker will handle connect/retry.
+=== Starting script ===
+2026-04-26 22:05:24  INFO     Runner version: 2026-04-26-hotfix-serial-v2
+2026-04-26 22:05:24  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM8  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 22:05:24  INFO     Events log : D:\Sterowanie zasilaniem\release\20260426_220524\relay_events.log
+2026-04-26 22:05:24  INFO     Debug log  : D:\Sterowanie zasilaniem\release\20260426_220524\relay_debug.log
+2026-04-26 22:05:24  INFO     Poll every : 30 s
+2026-04-26 22:05:26  INFO     Serial opened: COM8 @ 9600 baud
+2026-04-26 22:05:26  INFO     [EVENT] SERIAL RECOVERED: connected to COM8
+2026-04-26 22:05:26  INFO     Hold timer armed until 22:20:26
+2026-04-26 22:05:26  INFO     [EVENT] ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 22:05:26  INFO     poll#1  RELAY=ON   on_for=0h 00m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:05:56  INFO     poll#2  RELAY=ON   on_for=0h 00m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:06:26  INFO     poll#3  RELAY=ON   on_for=0h 01m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:06:56  INFO     poll#4  RELAY=ON   on_for=0h 01m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:07:26  INFO     poll#5  RELAY=ON   on_for=0h 02m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:07:56  INFO     poll#6  RELAY=ON   on_for=0h 02m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:08:26  INFO     poll#7  RELAY=ON   on_for=0h 03m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:08:56  INFO     poll#8  RELAY=ON   on_for=0h 03m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:09:26  INFO     poll#9  RELAY=ON   on_for=0h 04m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:09:56  INFO     poll#10  RELAY=ON   on_for=0h 04m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:10:26  INFO     poll#11  RELAY=ON   on_for=0h 05m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:10:56  INFO     poll#12  RELAY=ON   on_for=0h 05m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:11:26  INFO     poll#13  RELAY=ON   on_for=0h 06m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:11:56  INFO     poll#14  RELAY=ON   on_for=0h 06m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:12:26  INFO     poll#15  RELAY=ON   on_for=0h 07m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:12:56  INFO     poll#16  RELAY=ON   on_for=0h 07m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:13:26  INFO     poll#17  RELAY=ON   on_for=0h 08m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:13:56  INFO     poll#18  RELAY=ON   on_for=0h 08m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:14:26  INFO     poll#19  RELAY=ON   on_for=0h 09m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:14:56  INFO     poll#20  RELAY=ON   on_for=0h 09m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:15:26  INFO     poll#21  RELAY=ON   on_for=0h 10m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:15:56  INFO     poll#22  RELAY=ON   on_for=0h 10m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:16:26  INFO     poll#23  RELAY=ON   on_for=0h 11m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:16:56  INFO     poll#24  RELAY=ON   on_for=0h 11m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:17:26  INFO     poll#25  RELAY=ON   on_for=0h 12m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:17:56  INFO     poll#26  RELAY=ON   on_for=0h 12m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:18:26  INFO     poll#27  RELAY=ON   on_for=0h 13m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:18:56  INFO     poll#28  RELAY=ON   on_for=0h 13m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:19:26  INFO     poll#29  RELAY=ON   on_for=0h 14m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:19:56  INFO     poll#30  RELAY=ON   on_for=0h 14m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:20:26  INFO     poll#31  RELAY=ON   on_for=0h 15m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:20:56  INFO     poll#32  RELAY=ON   on_for=0h 15m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+Log copied to clipboard.
+2026-04-26 22:21:26  INFO     poll#33  RELAY=ON   on_for=0h 16m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:21:56  INFO     poll#34  RELAY=ON   on_for=0h 16m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:22:26  INFO     poll#35  RELAY=ON   on_for=0h 17m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:22:56  INFO     poll#36  RELAY=ON   on_for=0h 17m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:23:26  INFO     poll#37  RELAY=ON   on_for=0h 18m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:23:56  INFO     poll#38  RELAY=ON   on_for=0h 18m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:24:26  INFO     poll#39  RELAY=ON   on_for=0h 19m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:24:56  INFO     poll#40  RELAY=ON   on_for=0h 19m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:25:26  INFO     poll#41  RELAY=ON   on_for=0h 20m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 22:25:56  INFO     [EVENT] OFF  #001  duration=0h 20m 30s  total_ON_session=0h 20m  | roztdp=0.410 >= threshold 0.35
+2026-04-26 22:28:26  INFO     Hold timer armed until 22:43:26
+2026-04-26 22:28:26  INFO     [EVENT] ON   #002  T=25 RH=10.5  stable=152min  roztdp=0.25
+2026-04-26 22:28:26  INFO     poll#47  RELAY=ON   on_for=0h 00m 00s  | roztdp=0.250 < 0.35  |  T=25 RH=10.5 stable 152 min
+2026-04-26 22:28:56  INFO     poll#48  RELAY=ON   on_for=0h 00m 30s  | minimum ON hold active (14 min left)
+2026-04-26 22:29:26  INFO     poll#49  RELAY=ON   on_for=0h 01m 00s  | minimum ON hold active (13 min left)
+2026-04-26 22:29:56  INFO     poll#50  RELAY=ON   on_for=0h 01m 30s  | minimum ON hold active (13 min left)
+2026-04-26 22:30:26  INFO     poll#51  RELAY=ON   on_for=0h 02m 00s  | minimum ON hold active (12 min left)
+2026-04-26 22:30:56  INFO     poll#52  RELAY=ON   on_for=0h 02m 30s  | minimum ON hold active (12 min left)
+2026-04-26 22:31:26  INFO     poll#53  RELAY=ON   on_for=0h 03m 00s  | roztdp=0.210 < 0.35  |  T=25 RH=10.5 stable 154 min
+2026-04-26 22:31:56  INFO     poll#54  RELAY=ON   on_for=0h 03m 30s  | roztdp=0.210 < 0.35  |  T=25 RH=10.5 stable 154 min
+2026-04-26 22:32:26  INFO     poll#55  RELAY=ON   on_for=0h 04m 00s  | roztdp=0.210 < 0.35  |  T=25 RH=10.5 stable 154 min
+2026-04-26 22:32:56  INFO     poll#56  RELAY=ON   on_for=0h 04m 30s  | roztdp=0.210 < 0.35  |  T=25 RH=10.5 stable 154 min
+2026-04-26 22:33:26  INFO     poll#57  RELAY=ON   on_for=0h 05m 00s  | roztdp=0.210 < 0.35  |  T=25 RH=10.5 stable 154 min
+Log copied to clipboard.
+2026-04-26 22:33:56  INFO     poll#58  RELAY=ON   on_for=0h 05m 30s  | roztdp=0.210 < 0.35  |  T=25 RH=10.5 stable 154 min
+=== Script exited ===
+
+=== Диагностика среды ===
+.env загружен: OK
+DATA_FILE читается: OK
+[WARNING] Найдены зависшие процессы: [11808]
+[ERROR] Не удалось открыть порт COM8: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+[WARNING] Найдены зависшие процессы: [11808]

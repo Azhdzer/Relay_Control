@@ -1,0 +1,33 @@
+Session logs: D:\Sterowanie zasilaniem\release\20260426_223659
+[STEP] Checking and freeing port COM8...
+Port COM8 detected. Worker will handle connect/retry.
+=== Starting script ===
+2026-04-26 22:36:59  INFO     Runner version: 2026-04-26-hotfix-serial-v2
+2026-04-26 22:36:59  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM8  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 22:36:59  INFO     Events log : D:\Sterowanie zasilaniem\release\20260426_223659\relay_events.log
+2026-04-26 22:36:59  INFO     Debug log  : D:\Sterowanie zasilaniem\release\20260426_223659\relay_debug.log
+2026-04-26 22:36:59  INFO     Poll every : 30 s
+2026-04-26 22:37:01  INFO     Serial opened: COM8 @ 9600 baud
+2026-04-26 22:37:01  INFO     [EVENT] SERIAL RECOVERED: connected to COM8
+2026-04-26 22:37:01  INFO     Hold timer armed until 22:52:01
+2026-04-26 22:37:01  INFO     [EVENT] ON   #001  T=25 RH=10.5  stable=154min  roztdp=0.21
+2026-04-26 22:37:01  INFO     poll#1  RELAY=ON   on_for=0h 00m 00s  | tdp=0.210  | roztdp=0.210 < 0.35  |  T=25 RH=10.5 stable 154 min
+2026-04-26 22:37:31  INFO     poll#2  RELAY=ON   on_for=0h 00m 30s  | tdp=0.210  | roztdp=0.210 < 0.35  |  T=25 RH=10.5 stable 154 min
+2026-04-26 22:38:01  INFO     poll#3  RELAY=ON   on_for=0h 01m 00s  | tdp=0.370  | minimum ON hold active (13 min left)
+2026-04-26 22:38:31  INFO     poll#4  RELAY=ON   on_for=0h 01m 30s  | tdp=0.370  | minimum ON hold active (13 min left)
+2026-04-26 22:39:01  INFO     poll#5  RELAY=ON   on_for=0h 02m 00s  | tdp=0.370  | minimum ON hold active (12 min left)
+2026-04-26 22:39:31  INFO     poll#6  RELAY=ON   on_for=0h 02m 30s  | tdp=0.370  | minimum ON hold active (12 min left)
+2026-04-26 22:40:01  INFO     poll#7  RELAY=ON   on_for=0h 03m 00s  | tdp=0.240  | roztdp=0.240 < 0.35  |  T=25 RH=10.5 stable 155 min
+2026-04-26 22:40:31  INFO     poll#8  RELAY=ON   on_for=0h 03m 30s  | tdp=0.240  | roztdp=0.240 < 0.35  |  T=25 RH=10.5 stable 155 min
+
+=== Диагностика среды ===
+.env загружен: OK
+DATA_FILE читается: OK
+[WARNING] Найдены зависшие процессы: [5068, 19296]
+[ERROR] Не удалось открыть порт COM8: could not open port 'COM8': PermissionError(13, 'Отказано в доступе.', None, 5)
+2026-04-26 22:41:01  INFO     poll#9  RELAY=ON   on_for=0h 04m 00s  | tdp=0.240  | roztdp=0.240 < 0.35  |  T=25 RH=10.5 stable 156 min
+2026-04-26 22:41:31  INFO     poll#10  RELAY=ON   on_for=0h 04m 30s  | tdp=0.440  | minimum ON hold active (10 min left)
+2026-04-26 22:42:01  INFO     poll#11  RELAY=ON   on_for=0h 05m 00s  | tdp=0.440  | minimum ON hold active (9 min left)
+2026-04-26 22:42:31  INFO     poll#12  RELAY=ON   on_for=0h 05m 30s  | tdp=0.440  | minimum ON hold active (9 min left)
+2026-04-26 22:43:01  INFO     poll#13  RELAY=ON   on_for=0h 06m 00s  | tdp=0.440  | minimum ON hold active (8 min left)
+2026-04-26 22:43:31  INFO     poll#14  RELAY=ON   on_for=0h 06m 30s  | tdp=0.440  | minimum ON hold active (8 min left)

@@ -1,0 +1,14 @@
+2026-04-26 22:37:01  poll#1  RELAY=ON  on_for=0h 00m 00s  tdp=0.210  reason=roztdp=0.210 < 0.35  |  T=25 RH=10.5 stable 154 min
+2026-04-26 22:37:31  poll#2  RELAY=ON  on_for=0h 00m 30s  tdp=0.210  reason=roztdp=0.210 < 0.35  |  T=25 RH=10.5 stable 154 min
+2026-04-26 22:38:01  poll#3  RELAY=ON  on_for=0h 01m 00s  tdp=0.370  reason=minimum ON hold active (13 min left)
+2026-04-26 22:38:31  poll#4  RELAY=ON  on_for=0h 01m 30s  tdp=0.370  reason=minimum ON hold active (13 min left)
+2026-04-26 22:39:01  poll#5  RELAY=ON  on_for=0h 02m 00s  tdp=0.370  reason=minimum ON hold active (12 min left)
+2026-04-26 22:39:31  poll#6  RELAY=ON  on_for=0h 02m 30s  tdp=0.370  reason=minimum ON hold active (12 min left)
+2026-04-26 22:40:01  poll#7  RELAY=ON  on_for=0h 03m 00s  tdp=0.240  reason=roztdp=0.240 < 0.35  |  T=25 RH=10.5 stable 155 min
+2026-04-26 22:40:31  poll#8  RELAY=ON  on_for=0h 03m 30s  tdp=0.240  reason=roztdp=0.240 < 0.35  |  T=25 RH=10.5 stable 155 min
+2026-04-26 22:41:01  poll#9  RELAY=ON  on_for=0h 04m 00s  tdp=0.240  reason=roztdp=0.240 < 0.35  |  T=25 RH=10.5 stable 156 min
+2026-04-26 22:41:31  poll#10  RELAY=ON  on_for=0h 04m 30s  tdp=0.440  reason=minimum ON hold active (10 min left)
+2026-04-26 22:42:01  poll#11  RELAY=ON  on_for=0h 05m 00s  tdp=0.440  reason=minimum ON hold active (9 min left)
+2026-04-26 22:42:31  poll#12  RELAY=ON  on_for=0h 05m 30s  tdp=0.440  reason=minimum ON hold active (9 min left)
+2026-04-26 22:43:01  poll#13  RELAY=ON  on_for=0h 06m 00s  tdp=0.440  reason=minimum ON hold active (8 min left)
+2026-04-26 22:43:31  poll#14  RELAY=ON  on_for=0h 06m 30s  tdp=0.440  reason=minimum ON hold active (8 min left)

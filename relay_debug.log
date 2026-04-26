@@ -1,0 +1,172 @@
+2026-04-26 17:09:34  INFO     [EVENT] === SESSION START ===  file=C:\Users\Artsiom\Desktop\2026-04-17 16.00_99.txt  port=COM6  roztdp<0.35  stable>2.0h
+2026-04-26 17:09:34  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 17:09:34  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 17:09:34  INFO     Poll every : 30 s
+2026-04-26 17:09:36  INFO     Serial opened: COM6 @ 9600 baud
+2026-04-26 17:09:36  DEBUG    poll#1  RELAY=OFF  | data stale (9162 min old, limit 5 min)
+2026-04-26 17:10:06  DEBUG    poll#2  RELAY=OFF  | data stale (9162 min old, limit 5 min)
+2026-04-26 17:10:36  DEBUG    poll#3  RELAY=OFF  | data stale (9163 min old, limit 5 min)
+2026-04-26 17:11:06  DEBUG    poll#4  RELAY=OFF  | data stale (9163 min old, limit 5 min)
+2026-04-26 17:11:36  DEBUG    poll#5  RELAY=OFF  | data stale (9164 min old, limit 5 min)
+2026-04-26 17:12:06  DEBUG    poll#6  RELAY=OFF  | data stale (9164 min old, limit 5 min)
+2026-04-26 17:12:36  DEBUG    poll#7  RELAY=OFF  | data stale (9165 min old, limit 5 min)
+2026-04-26 19:49:12  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_on.txt  port=COM6  roztdp<0.35  stable>2.0h
+2026-04-26 19:49:12  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 19:49:12  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 19:49:12  INFO     Poll every : 30 s
+2026-04-26 19:49:14  INFO     Serial opened: COM6 @ 9600 baud
+2026-04-26 19:49:14  INFO     [EVENT] ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 19:49:14  INFO     poll#1  RELAY=ON   on_for=0h 00m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:49:44  INFO     poll#2  RELAY=ON   on_for=0h 00m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:50:14  ERROR    Serial write failed: WriteFile failed (PermissionError(13, 'Отказано в доступе.', None, 5))
+2026-04-26 19:50:14  ERROR    Cannot open serial port COM6: could not open port 'COM6': FileNotFoundError(2, 'Не удается найти указанный файл.', None, 2)
+2026-04-26 19:50:14  INFO     poll#3  RELAY=ON   on_for=0h 01m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:51:34  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_on.txt  port=COM6  roztdp<0.35  stable>2.0h
+2026-04-26 19:51:34  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 19:51:34  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 19:51:34  INFO     Poll every : 30 s
+2026-04-26 19:51:34  ERROR    Cannot open serial port COM6: could not open port 'COM6': FileNotFoundError(2, 'Не удается найти указанный файл.', None, 2)
+2026-04-26 19:51:34  INFO     [EVENT] === SESSION ABORTED: cannot open serial port ===
+2026-04-26 19:51:49  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_on.txt  port=COM6  roztdp<0.35  stable>2.0h
+2026-04-26 19:51:49  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 19:51:49  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 19:51:49  INFO     Poll every : 30 s
+2026-04-26 19:51:51  INFO     Serial opened: COM6 @ 9600 baud
+2026-04-26 19:51:51  INFO     [EVENT] ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 19:51:51  INFO     poll#1  RELAY=ON   on_for=0h 00m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:52:21  INFO     poll#2  RELAY=ON   on_for=0h 00m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:52:51  INFO     poll#3  RELAY=ON   on_for=0h 01m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:53:21  INFO     poll#4  RELAY=ON   on_for=0h 01m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:53:51  INFO     poll#5  RELAY=ON   on_for=0h 02m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:54:22  INFO     poll#6  RELAY=ON   on_for=0h 02m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:54:52  INFO     poll#7  RELAY=ON   on_for=0h 03m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:55:22  INFO     poll#8  RELAY=ON   on_for=0h 03m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:55:52  INFO     poll#9  RELAY=ON   on_for=0h 04m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:56:22  INFO     poll#10  RELAY=ON   on_for=0h 04m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:56:52  INFO     poll#11  RELAY=ON   on_for=0h 05m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:57:22  INFO     poll#12  RELAY=ON   on_for=0h 05m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:57:52  INFO     poll#13  RELAY=ON   on_for=0h 06m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:58:22  INFO     poll#14  RELAY=ON   on_for=0h 06m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:58:52  INFO     poll#15  RELAY=ON   on_for=0h 07m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:59:22  INFO     poll#16  RELAY=ON   on_for=0h 07m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 19:59:52  INFO     poll#17  RELAY=ON   on_for=0h 08m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:00:22  INFO     poll#18  RELAY=ON   on_for=0h 08m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:00:52  INFO     poll#19  RELAY=ON   on_for=0h 09m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:01:22  INFO     poll#20  RELAY=ON   on_for=0h 09m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:01:52  INFO     poll#21  RELAY=ON   on_for=0h 10m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:02:22  INFO     poll#22  RELAY=ON   on_for=0h 10m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:02:52  INFO     poll#23  RELAY=ON   on_for=0h 11m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:03:22  INFO     poll#24  RELAY=ON   on_for=0h 11m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:03:52  INFO     poll#25  RELAY=ON   on_for=0h 12m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:04:22  INFO     poll#26  RELAY=ON   on_for=0h 12m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:04:52  INFO     poll#27  RELAY=ON   on_for=0h 13m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:04:53  INFO     Stopped by user (Ctrl+C)
+2026-04-26 20:04:53  INFO     [EVENT] OFF  #001  duration=0h 13m 01s  total_ON_session=0h 13m  | script stopped
+2026-04-26 20:04:53  INFO     [EVENT] === SESSION END ===
+2026-04-26 20:04:55  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:04:55  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:04:55  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:04:55  INFO     Poll every : 30 s
+2026-04-26 20:04:55  ERROR    Cannot open serial port COM6: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+2026-04-26 20:04:55  INFO     [EVENT] === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:05:01  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:05:01  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:05:01  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:05:01  INFO     Poll every : 30 s
+2026-04-26 20:05:01  ERROR    Cannot open serial port COM6: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+2026-04-26 20:05:01  INFO     [EVENT] === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:06:39  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:06:39  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:06:39  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:06:39  INFO     Poll every : 30 s
+2026-04-26 20:06:39  ERROR    Cannot open serial port COM6: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+2026-04-26 20:06:39  INFO     [EVENT] === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:07:07  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:07:07  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:07:07  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:07:07  INFO     Poll every : 30 s
+2026-04-26 20:07:07  ERROR    Cannot open serial port COM6: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+2026-04-26 20:07:07  INFO     [EVENT] === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:07:12  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:07:12  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:07:12  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:07:12  INFO     Poll every : 30 s
+2026-04-26 20:07:12  ERROR    Cannot open serial port COM6: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+2026-04-26 20:07:12  INFO     [EVENT] === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:09:16  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:09:16  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:09:16  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:09:16  INFO     Poll every : 30 s
+2026-04-26 20:09:18  INFO     Serial opened: COM6 @ 9600 baud
+2026-04-26 20:09:18  INFO     Hold timer armed until 20:24:18
+2026-04-26 20:09:18  INFO     [EVENT] ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 20:09:18  INFO     poll#1  RELAY=ON   on_for=0h 00m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:09:37  INFO     Stopped by user (Ctrl+C)
+2026-04-26 20:09:37  INFO     [EVENT] OFF  #001  duration=0h 00m 19s  total_ON_session=0h 00m  | script stopped
+2026-04-26 20:09:37  INFO     [EVENT] === SESSION END ===
+2026-04-26 20:10:17  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:10:17  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:10:17  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:10:17  INFO     Poll every : 30 s
+2026-04-26 20:10:17  ERROR    Cannot open serial port COM6: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+2026-04-26 20:10:17  INFO     [EVENT] === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:11:48  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:11:48  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:11:48  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:11:48  INFO     Poll every : 30 s
+2026-04-26 20:11:50  INFO     Serial opened: COM6 @ 9600 baud
+2026-04-26 20:11:50  INFO     Hold timer armed until 20:26:50
+2026-04-26 20:11:50  INFO     [EVENT] ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 20:11:50  INFO     poll#1  RELAY=ON   on_for=0h 00m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:12:20  INFO     poll#2  RELAY=ON   on_for=0h 00m 30s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:12:50  INFO     poll#3  RELAY=ON   on_for=0h 01m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:12:57  INFO     Stopped by user (Ctrl+C)
+2026-04-26 20:12:57  INFO     [EVENT] OFF  #001  duration=0h 01m 07s  total_ON_session=0h 01m  | script stopped
+2026-04-26 20:12:57  INFO     [EVENT] === SESSION END ===
+2026-04-26 20:13:00  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:13:00  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:13:00  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:13:00  INFO     Poll every : 30 s
+2026-04-26 20:13:00  ERROR    Cannot open serial port COM6: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+2026-04-26 20:13:00  INFO     [EVENT] === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:13:06  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:13:06  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:13:06  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:13:06  INFO     Poll every : 30 s
+2026-04-26 20:13:06  ERROR    Cannot open serial port COM6: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+2026-04-26 20:13:06  INFO     [EVENT] === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:13:26  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:13:26  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:13:26  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:13:26  INFO     Poll every : 30 s
+2026-04-26 20:13:28  INFO     Serial opened: COM6 @ 9600 baud
+2026-04-26 20:13:28  INFO     Hold timer armed until 20:28:28
+2026-04-26 20:13:28  INFO     [EVENT] ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 20:13:28  INFO     poll#1  RELAY=ON   on_for=0h 00m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min
+2026-04-26 20:13:34  INFO     Stopped by user (Ctrl+C)
+2026-04-26 20:13:34  INFO     [EVENT] OFF  #001  duration=0h 00m 05s  total_ON_session=0h 00m  | script stopped
+2026-04-26 20:13:34  INFO     [EVENT] === SESSION END ===
+2026-04-26 20:13:35  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:13:35  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:13:35  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:13:35  INFO     Poll every : 30 s
+2026-04-26 20:13:35  ERROR    Cannot open serial port COM6: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+2026-04-26 20:13:35  INFO     [EVENT] === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:20:58  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:20:58  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:20:58  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:20:58  INFO     Poll every : 30 s
+2026-04-26 20:20:58  WARNING  Serial open attempt 1/5 failed: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31) — retrying in 3s
+2026-04-26 20:21:01  WARNING  Serial open attempt 2/5 failed: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31) — retrying in 3s
+2026-04-26 20:21:04  WARNING  Serial open attempt 3/5 failed: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31) — retrying in 3s
+2026-04-26 20:21:07  WARNING  Serial open attempt 4/5 failed: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31) — retrying in 3s
+2026-04-26 20:21:10  ERROR    Cannot open serial port COM6: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+2026-04-26 20:21:10  INFO     [EVENT] === SESSION ABORTED: cannot open serial port ===
+2026-04-26 20:21:25  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:21:25  INFO     Events log : D:\Sterowanie zasilaniem\relay_events.log
+2026-04-26 20:21:25  INFO     Debug log  : D:\Sterowanie zasilaniem\relay_debug.log
+2026-04-26 20:21:25  INFO     Poll every : 30 s
+2026-04-26 20:21:27  INFO     Serial opened: COM6 @ 9600 baud
+2026-04-26 20:21:27  INFO     Hold timer armed until 20:36:27
+2026-04-26 20:21:27  INFO     [EVENT] ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 20:21:27  INFO     poll#1  RELAY=ON   on_for=0h 00m 00s  | roztdp=0.280 < 0.35  |  T=25 RH=10.5 stable 150 min

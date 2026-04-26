@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "author": "Arduino Relay Control Prototype",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "wokwi-arduino-nano",
+      "id": "nano",
+      "top": 200,
+      "left": 300,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd",
+      "top": 10,
+      "left": 40,
+      "attrs": {
+        "pins": "i2c",
+        "i2cAddress": "0x27",
+        "background": "blue",
+        "color": "white"
+      }
+    },
+    {
+      "type": "wokwi-relay-module",
+      "id": "relay1",
+      "top": 60,
+      "left": 580,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 420,
+      "left": 300,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 380,
+      "left": 420,
+      "attrs": {
+        "color": "red",
+        "label": "RELAY ON"
+      }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 400,
+      "left": 100,
+      "attrs": {
+        "color": "red",
+        "label": "EMERGENCY OFF",
+        "key": "e"
+      }
+    }
+  ],
+  "connections": [
+    ["nano:A4", "lcd:SDA", "green", []],
+    ["nano:A5", "lcd:SCL", "gold", []],
+    ["nano:5V", "lcd:VCC", "red", []],
+    ["nano:GND.1", "lcd:GND", "black", []],
+
+    ["nano:D5", "relay1:IN", "blue", []],
+    ["nano:5V", "relay1:VCC", "red", []],
+    ["nano:GND.2", "relay1:GND", "black", []],
+
+    ["nano:D8", "r1:1", "orange", []],
+    ["r1:2", "led1:A", "orange", []],
+    ["led1:C", "nano:GND.1", "black", []],
+
+    ["nano:D2", "btn1:1.l", "white", []],
+    ["btn1:2.l", "nano:GND.2", "black", []]
+  ]
+}

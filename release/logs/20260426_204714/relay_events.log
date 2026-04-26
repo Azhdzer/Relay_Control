@@ -1,0 +1,2 @@
+2026-04-26 20:47:20  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM6  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 20:47:30  ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28

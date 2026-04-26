@@ -1,0 +1,12 @@
+Session logs: D:\Sterowanie zasilaniem\release\20260426_223649
+[STEP] Checking and freeing port COM8...
+Port COM8 detected. Worker will handle connect/retry.
+=== Starting script ===
+2026-04-26 22:36:49  INFO     Runner version: 2026-04-26-hotfix-serial-v2
+2026-04-26 22:36:49  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM8  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 22:36:49  INFO     Events log : D:\Sterowanie zasilaniem\release\20260426_223649\relay_events.log
+2026-04-26 22:36:49  INFO     Debug log  : D:\Sterowanie zasilaniem\release\20260426_223649\relay_debug.log
+2026-04-26 22:36:49  INFO     Poll every : 30 s
+=== Script exited ===
+Stopping previous worker...
+[WARNING] Найдены зависшие процессы: [5068]

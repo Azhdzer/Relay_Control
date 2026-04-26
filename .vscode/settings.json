@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^python -c \"\ncontent = open\\('d:/Sterowanie zasilaniem/pc_relay_script\\.py', encoding='utf-8-sig'\\)\\.read\\(\\)\nwith open\\('d:/Sterowanie zasilaniem/pc_relay_script\\.py', 'w', encoding='utf-8'\\) as f:\n    f\\.write\\(content\\)\nimport ast\nast\\.parse\\(content\\)\nprint\\('syntax OK'\\)\n\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}

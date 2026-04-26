@@ -1,0 +1,8 @@
+2026-04-26 22:36:46  INFO     Runner version: 2026-04-26-hotfix-serial-v2
+2026-04-26 22:36:46  INFO     [EVENT] === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM8  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 22:36:46  INFO     Events log : D:\Sterowanie zasilaniem\release\20260426_223646\relay_events.log
+2026-04-26 22:36:46  INFO     Debug log  : D:\Sterowanie zasilaniem\release\20260426_223646\relay_debug.log
+2026-04-26 22:36:46  INFO     Poll every : 30 s
+2026-04-26 22:36:46  ERROR    Cannot open serial port COM8: Cannot configure port, something went wrong. Original message: PermissionError(13, 'Присоединенное к системе устройство не работает.', None, 31)
+2026-04-26 22:36:46  INFO     [EVENT] SERIAL DOWN: COM8 unavailable, running fail-safe OFF
+2026-04-26 22:36:46  INFO     poll#1  RELAY=OFF  on_for=-  | tdp=n/a  | serial unavailable on COM8

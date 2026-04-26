@@ -1,0 +1,5 @@
+2026-04-26 22:05:24  === SESSION START ===  file=D:\Sterowanie zasilaniem\test_data_many_channels_on.txt  port=COM8  roztdp<0.35  stable>2.0h  min_on_hold=15min
+2026-04-26 22:05:26  SERIAL RECOVERED: connected to COM8
+2026-04-26 22:05:26  ON   #001  T=25 RH=10.5  stable=150min  roztdp=0.28
+2026-04-26 22:25:56  OFF  #001  duration=0h 20m 30s  total_ON_session=0h 20m  | roztdp=0.410 >= threshold 0.35
+2026-04-26 22:28:26  ON   #002  T=25 RH=10.5  stable=152min  roztdp=0.25
