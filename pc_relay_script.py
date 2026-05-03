@@ -81,6 +81,15 @@ SERIAL_PORT           = cfg.get("SERIAL_PORT", "COM3")
 BAUD_RATE             = int(cfg.get("BAUD_RATE", "9600"))
 POLL_INTERVAL         = int(cfg.get("POLL_INTERVAL", "30"))
 ROZTDP_THRESHOLD      = float(cfg.get("ROZTDP_THRESHOLD", "0.35"))
+
+# Per-range t_dp thresholds (loaded from .env, fall back to hardcoded table defaults)
+ROZTDP_T10_RH_EXT     = float(cfg.get("ROZTDP_T10_RH_EXT",  "0.45"))  # T≈10, rh 22-40 or 75-95
+ROZTDP_T10_RH_MID     = float(cfg.get("ROZTDP_T10_RH_MID",  "0.20"))  # T≈10, rh 40-75
+ROZTDP_T23_RH_MID     = float(cfg.get("ROZTDP_T23_RH_MID",  "0.20"))  # T≈23, rh 30-75
+ROZTDP_T23_RH_EXT     = float(cfg.get("ROZTDP_T23_RH_EXT",  "0.45"))  # T≈23, rh 10-30 or 75-95
+ROZTDP_T35_RH_MID     = float(cfg.get("ROZTDP_T35_RH_MID",  "0.20"))  # T≈35, rh 40-75
+ROZTDP_T35_RH_EXT     = float(cfg.get("ROZTDP_T35_RH_EXT",  "0.45"))  # T≈35, rh 10-40 or 75-95
+
 SETPOINT_STABLE_HOURS = float(cfg.get("SETPOINT_STABLE_HOURS", "2.0"))
 STALE_DATA_MINUTES    = int(cfg.get("STALE_DATA_MINUTES", "5"))
 MIN_ON_HOLD_MINUTES   = int(cfg.get("MIN_ON_HOLD_MINUTES", "15"))
@@ -180,6 +189,61 @@ def parse_rows(lines: list) -> tuple:
     return rows, None
 
 
+# -- Dynamic dew-point threshold based on stability criteria table -----------
+_T_TOL  = 0.5   # temperature match tolerance [°C]
+_RH_TOL = 2.0   # RH match tolerance [%]
+
+
+def get_roztdp_threshold(tz_str: str, rh_str: str) -> float:
+    """
+    Returns the max allowed 15-min peak-to-peak dew-point fluctuation (t_dp) [°C]
+    for the given T and RH setpoints, using the configured per-range thresholds.
+
+    Temperature tolerance: ±0.5°C  (configurable via _T_TOL)
+    RH tolerance:          ±2%     (configurable via _RH_TOL)
+
+    Six ranges from stability criteria table — all values configurable in .env:
+      T≈10°C  rh (40÷75)             → ROZTDP_T10_RH_MID  (default 0.20)
+      T≈10°C  rh <22÷40> or <75÷95> → ROZTDP_T10_RH_EXT  (default 0.45)
+      T≈23°C  rh <30÷75>            → ROZTDP_T23_RH_MID  (default 0.20)
+      T≈23°C  rh <10÷30> or <75÷95>→ ROZTDP_T23_RH_EXT  (default 0.45)
+      T≈35°C  rh (40÷75)            → ROZTDP_T35_RH_MID  (default 0.20)
+      T≈35°C  rh <10÷40> or <75÷95>→ ROZTDP_T35_RH_EXT  (default 0.45)
+
+    Falls back to ROZTDP_THRESHOLD (global default from .env) if T is not in
+    any of the three calibration temperature points.
+    """
+    try:
+        tz = float(tz_str.replace(",", "."))
+        rh = float(rh_str.replace(",", "."))
+    except (ValueError, AttributeError):
+        return ROZTDP_THRESHOLD
+
+    if abs(tz - 10.0) <= _T_TOL:
+        # MID range checked first: if rh is within 40÷75 (with tolerance) use stricter threshold
+        if (40 - _RH_TOL) < rh < (75 + _RH_TOL):
+            return ROZTDP_T10_RH_MID
+        if ((22 - _RH_TOL) <= rh <= (40 + _RH_TOL)) or \
+           ((75 - _RH_TOL) <= rh <= (95 + _RH_TOL)):
+            return ROZTDP_T10_RH_EXT
+
+    elif abs(tz - 23.0) <= _T_TOL:
+        if (30 - _RH_TOL) <= rh <= (75 + _RH_TOL):
+            return ROZTDP_T23_RH_MID
+        if ((10 - _RH_TOL) <= rh <= (30 + _RH_TOL)) or \
+           ((75 - _RH_TOL) <= rh <= (95 + _RH_TOL)):
+            return ROZTDP_T23_RH_EXT
+
+    elif abs(tz - 35.0) <= _T_TOL:
+        if (40 - _RH_TOL) < rh < (75 + _RH_TOL):
+            return ROZTDP_T35_RH_MID
+        if ((10 - _RH_TOL) <= rh <= (40 + _RH_TOL)) or \
+           ((75 - _RH_TOL) <= rh <= (95 + _RH_TOL)):
+            return ROZTDP_T35_RH_EXT
+
+    return ROZTDP_THRESHOLD  # T not in any calibration point, or RH out of all ranges
+
+
 # -- Core evaluation ----------------------------------------------------------
 def evaluate(rows: list) -> tuple:
     if not rows:
@@ -187,10 +251,22 @@ def evaluate(rows: list) -> tuple:
 
     latest = rows[-1]
 
+    # Internal timestamp check (secondary — file mtime is checked in main()).
+    # Only triggers if the last row's timestamp is actually in the past and old.
     age = datetime.now() - latest["_dt"]
-    if age > timedelta(minutes=STALE_DATA_MINUTES):
+    if age.total_seconds() > 0 and age > timedelta(minutes=STALE_DATA_MINUTES):
         mins = int(age.total_seconds() // 60)
         return False, f"data stale ({mins} min old, limit {STALE_DATA_MINUTES} min)", {}
+
+    # Read setpoints first — required for dynamic threshold.
+    try:
+        tz_now = latest["Tzadana"].strip()
+        rh_now = latest["RHzadana"].strip()
+    except KeyError:
+        return False, "Tzadana or RHzadana column missing", {}
+
+    # Dynamic dew-point threshold based on T and RH setpoints.
+    threshold = get_roztdp_threshold(tz_now, rh_now)
 
     raw = latest.get("roztdp(15min)", "brak").strip()
     if raw.lower() in ("brak", ""):
@@ -200,15 +276,11 @@ def evaluate(rows: list) -> tuple:
     except ValueError:
         return False, f"roztdp(15min) not numeric: {raw!r}", {}
 
-    if roztdp >= ROZTDP_THRESHOLD:
-        return False, f"roztdp={roztdp:.3f} >= threshold {ROZTDP_THRESHOLD}", \
-               {"roztdp": roztdp}
-
-    try:
-        tz_now = latest["Tzadana"].strip()
-        rh_now = latest["RHzadana"].strip()
-    except KeyError:
-        return False, "Tzadana or RHzadana column missing", {}
+    if roztdp >= threshold:
+        return False, (
+            f"roztdp={roztdp:.3f} >= threshold {threshold:.2f} "
+            f"(T={tz_now} RH={rh_now})"
+        ), {"roztdp": roztdp}
 
     setpoint_start_dt = latest["_dt"]
     for row in reversed(rows):
@@ -232,8 +304,8 @@ def evaluate(rows: list) -> tuple:
             "Tzadana": tz_now, "RHzadana": rh_now}
 
     return True, (
-        f"roztdp={roztdp:.3f} < {ROZTDP_THRESHOLD}  |  "
-        f"T={tz_now} RH={rh_now} stable {stable_min} min"
+        f"roztdp={roztdp:.3f} < {threshold:.2f} (T={tz_now} RH={rh_now})  |  "
+        f"stable {stable_min} min"
     ), {"roztdp": roztdp, "stable_min": stable_min,
         "Tzadana": tz_now, "RHzadana": rh_now}
 
@@ -339,6 +411,7 @@ def is_hard_error_reason(reason: str) -> bool:
         "file not found",
         "data_file not set",
         "data stale",
+        "data file not updated",
         "serial unavailable",
         "header row",
         "cannot decode",
@@ -403,7 +476,19 @@ def main() -> None:
                     if err:
                         reason = err
                     else:
-                        relay_on, reason, extra = evaluate(rows)
+                        # Primary stale check: OS file modification time.
+                        # This works correctly even with test files that have
+                        # far-future internal timestamps (e.g. 2099-01-01).
+                        file_age_secs = time.time() - os.path.getmtime(DATA_FILE)
+                        if file_age_secs > STALE_DATA_MINUTES * 60:
+                            relay_on = False
+                            reason = (
+                                f"data file not updated for "
+                                f"{file_age_secs / 60:.1f} min "
+                                f"(limit {STALE_DATA_MINUTES} min)"
+                            )
+                        else:
+                            relay_on, reason, extra = evaluate(rows)
             except Exception as exc:
                 relay_on = False
                 reason   = f"exception: {exc}"
@@ -461,10 +546,19 @@ def main() -> None:
                          poll_n, tdp_text, reason)
                 log_state(poll_n, cmd, tdp_text, reason, on_for="-")
 
+            sys.stdout.flush()
             time.sleep(POLL_INTERVAL)
 
     except KeyboardInterrupt:
         log.info("Stopped by user (Ctrl+C)")
+    except Exception as exc:
+        import traceback
+        tb = traceback.format_exc()
+        try:
+            log.exception("FATAL unhandled exception: %s", exc)
+        except Exception:
+            pass
+        print(f"[FATAL] {exc}\n{tb}", flush=True)
     finally:
         if last_cmd == "ON":
             stats.transition_off("script stopped")
@@ -474,7 +568,7 @@ def main() -> None:
             pass
         close_serial(ser)
         log_event("=== SESSION END ===")
-        print("=== SESSION END ===")
+        print("=== SESSION END ===", flush=True)
 
 
 if __name__ == "__main__":

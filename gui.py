@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple GUI for Relay Controller.
-Left: editable config params.  Right: live log output.
-Buttons: Start / Stop.
+Relay Controller GUI  —  modern dark theme
 """
 
 import tkinter as tk
@@ -28,12 +26,55 @@ SCRIPT_DIR = Path(__file__).parent.resolve()
 ENV_FILE   = SCRIPT_DIR / ".env"
 SCRIPT     = SCRIPT_DIR / "pc_relay_script.py"
 
-# When frozen as .exe (PyInstaller), __file__ points inside _MEIPASS temp dir.
-# Use the folder of the exe itself for .env and the script.
 if getattr(sys, "frozen", False):
     SCRIPT_DIR = Path(sys.executable).parent.resolve()
     ENV_FILE   = SCRIPT_DIR / ".env"
     SCRIPT     = SCRIPT_DIR / "pc_relay_script.py"
+
+# ── Colour palette ────────────────────────────────────────────────────────────
+C = {
+    "bg":        "#1a1a2e",
+    "panel":     "#16213e",
+    "card":      "#0f3460",
+    "border":    "#1f4068",
+    "accent":    "#e94560",
+    "green":     "#00b894",
+    "yellow":    "#fdcb6e",
+    "text":      "#eaeaea",
+    "muted":     "#7f8c8d",
+    "entry_bg":  "#0d2137",
+    "entry_fg":  "#eaeaea",
+    "log_bg":    "#0d0d1a",
+    "btn_start": "#00b894",
+    "btn_stop":  "#e94560",
+    "btn_diag":  "#636e72",
+}
+FONT_BODY  = ("Segoe UI", 9)
+FONT_BOLD  = ("Segoe UI", 9,  "bold")
+FONT_HEAD  = ("Segoe UI", 11, "bold")
+FONT_SMALL = ("Segoe UI", 8)
+FONT_MONO  = ("Cascadia Code", 9) if sys.platform == "win32" else ("Consolas", 9)
+
+
+def _flat_button(parent, text, command, bg, fg="#ffffff",
+                 padx=14, pady=5, font=FONT_BOLD):
+    return tk.Button(
+        parent, text=text, command=command,
+        bg=bg, fg=fg, activebackground=bg, activeforeground=fg,
+        font=font, relief="flat", bd=0,
+        padx=padx, pady=pady, cursor="hand2",
+    )
+
+
+def _section_label(parent, text, bg=None):
+    bg = bg or C["panel"]
+    f = tk.Frame(parent, bg=bg)
+    tk.Label(f, text=text, font=FONT_BOLD,
+             bg=bg, fg=C["accent"]).pack(side="left")
+    tk.Frame(f, bg=C["border"], height=1).pack(
+        side="left", fill="x", expand=True, padx=(8, 0), pady=(4, 0))
+    return f
+
 
 # Fields to show in GUI (key, label, description)
 FIELDS = [
@@ -41,12 +82,20 @@ FIELDS = [
     ("SERIAL_PORT",           "Serial port",           "e.g. COM6"),
     ("BAUD_RATE",             "Baud rate",             "Must match Arduino (9600)"),
     ("POLL_INTERVAL",         "Poll interval (s)",     "How often to check, seconds"),
-    ("ROZTDP_THRESHOLD",      "roztdp threshold",      "Max drift to allow ON"),
+    ("ROZTDP_THRESHOLD",      "roztdp threshold",      "Fallback max drift"),
     ("SETPOINT_STABLE_HOURS", "Stable hours required", "Min stability before ON"),
     ("MIN_ON_HOLD_MINUTES",   "Min ON hold (min)",     "Keep ON at least N minutes"),
-    ("STALE_DATA_MINUTES",    "Stale data limit (min)","Data older than N min → OFF"),
+    ("STALE_DATA_MINUTES",    "Stale data limit (min)","File not updated N min → OFF"),
 ]
 
+THRESHOLD_FIELDS = [
+    ("ROZTDP_T10_RH_MID", "T≈10°C, RH 40–75",          "Mid humidity at 10°C"),
+    ("ROZTDP_T10_RH_EXT", "T≈10°C, RH 22–40 / 75–95", "Ext humidity at 10°C"),
+    ("ROZTDP_T23_RH_MID", "T≈23°C, RH 30–75",          "Mid humidity at 23°C"),
+    ("ROZTDP_T23_RH_EXT", "T≈23°C, RH 10–30 / 75–95", "Ext humidity at 23°C"),
+    ("ROZTDP_T35_RH_MID", "T≈35°C, RH 40–75",          "Mid humidity at 35°C"),
+    ("ROZTDP_T35_RH_EXT", "T≈35°C, RH 10–40 / 75–95", "Ext humidity at 35°C"),
+]
 
 def load_env(path: Path) -> dict:
     cfg = {}
@@ -179,136 +228,369 @@ class App(tk.Tk):
         super().__init__()
         self.title("Relay Controller")
         self.resizable(True, True)
+        self.minsize(1150, 720)
+        self.geometry("1420x860")
+        self.configure(bg=C["bg"])
         self.process = None
         self.session_dir = None
         self.session_log_file = None
+        self._apply_theme()
         self._build_ui()
         self._load_fields()
 
+    def _apply_theme(self):
+        style = ttk.Style(self)
+        style.theme_use("clam")
+        # Base widget colours
+        style.configure(".",
+            background=C["panel"], foreground=C["text"],
+            fieldbackground=C["entry_bg"], font=FONT_BODY,
+            bordercolor=C["border"], troughcolor=C["entry_bg"],
+            selectbackground=C["card"], selectforeground=C["text"],
+        )
+        style.configure("TFrame",        background=C["panel"])
+        style.configure("TLabel",        background=C["panel"], foreground=C["text"], font=FONT_BODY)
+        style.configure("Muted.TLabel",  background=C["panel"], foreground=C["muted"], font=FONT_SMALL)
+        style.configure("Head.TLabel",   background=C["panel"], foreground=C["text"],  font=FONT_HEAD)
+        style.configure("TEntry",
+            fieldbackground=C["entry_bg"], foreground=C["entry_fg"],
+            bordercolor=C["border"], insertcolor=C["text"], relief="flat",
+        )
+        style.configure("TCombobox",
+            fieldbackground=C["entry_bg"], foreground=C["entry_fg"],
+            selectbackground=C["card"], selectforeground=C["text"],
+            arrowcolor=C["muted"],
+        )
+        style.map("TCombobox",
+            fieldbackground=[("readonly", C["entry_bg"])],
+            foreground=[("readonly", C["entry_fg"])],
+        )
+        style.configure("TCheckbutton",
+            background=C["panel"], foreground=C["text"], font=FONT_BODY,
+        )
+        style.map("TCheckbutton",
+            background=[("active", C["panel"])],
+            foreground=[("active", C["accent"])],
+        )
+        style.configure("Card.TFrame",   background=C["card"])
+        style.configure("TScrollbar",    background=C["border"], troughcolor=C["entry_bg"],
+                        arrowcolor=C["muted"], bordercolor=C["panel"])
+        # option_add for Combobox dropdown
+        self.option_add("*TCombobox*Listbox.background",  C["entry_bg"])
+        self.option_add("*TCombobox*Listbox.foreground",  C["text"])
+        self.option_add("*TCombobox*Listbox.selectBackground", C["card"])
+        self.option_add("*TCombobox*Listbox.font", FONT_BODY)
+
     # ------------------------------------------------------------------ UI --
     def _build_ui(self):
-        self.columnconfigure(0, weight=0)
+        self.columnconfigure(0, weight=0, minsize=450)
         self.columnconfigure(1, weight=1)
         self.rowconfigure(0, weight=1)
+        self.rowconfigure(1, weight=0)
 
-        # ── Left panel ──────────────────────────────────────────────────────
-        left = ttk.Frame(self, padding=10)
-        left.grid(row=0, column=0, sticky="nsew")
+        # ── Left panel (scrollable canvas) ──────────────────────────────────
+        left_outer = tk.Frame(self, bg=C["panel"], width=540)
+        left_outer.grid(row=0, column=0, sticky="nsew")
+        left_outer.grid_propagate(False)
+        left_outer.rowconfigure(0, weight=1)
+        left_outer.columnconfigure(0, weight=1)
 
-        ttk.Label(left, text="Configuration", font=("", 10, "bold")).grid(
-            row=0, column=0, columnspan=3, sticky="w", pady=(0, 8))
+        canvas = tk.Canvas(left_outer, bg=C["panel"], highlightthickness=0, bd=0)
+        # Custom flat scrollbar drawn on a Canvas
+        vsb_canvas = tk.Canvas(left_outer, bg=C["panel"],
+                               width=6, highlightthickness=0, bd=0)
+        vsb_canvas.pack(side="right", fill="y")
+        canvas.pack(side="left", fill="both", expand=True)
+
+        def _vsb_set(first, last):
+            first, last = float(first), float(last)
+            h = vsb_canvas.winfo_height()
+            y0 = int(first * h)
+            y1 = max(y0 + 20, int(last * h))
+            vsb_canvas.delete("thumb")
+            vsb_canvas.create_rectangle(
+                1, y0, 5, y1,
+                fill=C["border"], outline="", tags="thumb")
+
+        def _vsb_click(event):
+            h = vsb_canvas.winfo_height()
+            frac = event.y / h if h else 0
+            canvas.yview_moveto(frac)
+
+        def _vsb_drag(event):
+            h = vsb_canvas.winfo_height()
+            frac = event.y / h if h else 0
+            canvas.yview_moveto(frac)
+
+        vsb_canvas.bind("<Button-1>", _vsb_click)
+        vsb_canvas.bind("<B1-Motion>", _vsb_drag)
+        canvas.configure(yscrollcommand=_vsb_set)
+
+        left = tk.Frame(canvas, bg=C["panel"], padx=16, pady=14)
+        win_id = canvas.create_window((0, 0), window=left, anchor="nw")
+
+        def _on_frame_configure(e):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+        def _on_canvas_configure(e):
+            canvas.itemconfig(win_id, width=e.width)
+        left.bind("<Configure>", _on_frame_configure)
+        canvas.bind("<Configure>", _on_canvas_configure)
+        canvas.bind_all("<MouseWheel>", lambda e: canvas.yview_scroll(
+            int(-1 * (e.delta / 120)), "units"))
+
+        # App title
+        tk.Label(left, text="⚡  Relay Controller",
+                 font=("Segoe UI", 13, "bold"),
+                 bg=C["panel"], fg=C["accent"]).pack(anchor="w", pady=(0, 12))
+
+        # ── Section: General config ──────────────────────────────────────────
+        _section_label(left, "GENERAL CONFIG").pack(fill="x", pady=(0, 6))
+
+        config_frame = tk.Frame(left, bg=C["panel"])
+        config_frame.pack(fill="x")
+        config_frame.columnconfigure(1, weight=1)
+        config_frame.columnconfigure(2, weight=0)
 
         self.vars = {}
-        for i, (key, label, hint) in enumerate(FIELDS, start=1):
-            ttk.Label(left, text=label).grid(row=i, column=0, sticky="w", pady=2)
+        for i, (key, label, hint) in enumerate(FIELDS):
+            tk.Label(config_frame, text=label, font=FONT_BODY,
+                     bg=C["panel"], fg=C["text"], anchor="w").grid(
+                row=i, column=0, sticky="w", pady=3, padx=(0, 8))
             var = tk.StringVar()
             self.vars[key] = var
             if key == "DATA_FILE":
-                frame = ttk.Frame(left)
-                frame.grid(row=i, column=1, sticky="ew", padx=(6, 0), pady=2)
-                ttk.Entry(frame, textvariable=var, width=30).pack(side="left", fill="x", expand=True)
-                ttk.Button(frame, text="…", width=2,
-                           command=self._browse_file).pack(side="left", padx=(2, 0))
+                row_f = tk.Frame(config_frame, bg=C["panel"])
+                row_f.grid(row=i, column=1, sticky="ew", pady=3)
+                row_f.columnconfigure(0, weight=1)
+                tk.Entry(row_f, textvariable=var,
+                         bg=C["entry_bg"], fg=C["entry_fg"], relief="flat",
+                         insertbackground=C["text"], font=FONT_BODY).grid(
+                    row=0, column=0, sticky="ew", ipady=4)
+                tk.Button(row_f, text="…", command=self._browse_file,
+                          bg=C["card"], fg=C["text"], relief="flat",
+                          font=FONT_BODY, padx=6, cursor="hand2").grid(
+                    row=0, column=1, padx=(3, 0))
             elif key == "SERIAL_PORT":
-                frame = ttk.Frame(left)
-                frame.grid(row=i, column=1, sticky="ew", padx=(6, 0), pady=2)
-                self.port_combo = ttk.Combobox(frame, textvariable=var, width=10)
-                self.port_combo.pack(side="left")
-                ttk.Button(frame, text="↺", width=2,
-                           command=self._refresh_ports).pack(side="left", padx=(3, 0))
+                row_f = tk.Frame(config_frame, bg=C["panel"])
+                row_f.grid(row=i, column=1, columnspan=2, sticky="ew", pady=3)
+                row_f.columnconfigure(0, weight=1)
+                self.port_combo = ttk.Combobox(row_f, textvariable=var, width=14)
+                self.port_combo.grid(row=0, column=0, sticky="ew", ipady=2)
+                tk.Button(row_f, text="↺  Refresh ports",
+                          command=self._refresh_ports,
+                          bg=C["accent"], fg="#ffffff", relief="flat",
+                          font=FONT_SMALL, padx=12, pady=4,
+                          cursor="hand2", activebackground=C["accent"]
+                          ).grid(row=0, column=1, padx=(10, 0))
                 self._refresh_ports()
             else:
-                ttk.Entry(left, textvariable=var, width=14).grid(
-                    row=i, column=1, sticky="w", padx=(6, 0), pady=2)
-            ttk.Label(left, text=hint, foreground="gray").grid(
-                row=i, column=2, sticky="w", padx=(8, 0))
+                tk.Entry(config_frame, textvariable=var, width=12,
+                         bg=C["entry_bg"], fg=C["entry_fg"], relief="flat",
+                         insertbackground=C["text"], font=FONT_BODY).grid(
+                    row=i, column=1, sticky="w", pady=3, ipady=4)
+            if key != "SERIAL_PORT" and hint:
+                tk.Label(config_frame, text=hint, font=FONT_SMALL,
+                         bg=C["panel"], fg=C["muted"]).grid(
+                    row=i, column=2, sticky="w", padx=(8, 0))
 
-        ttk.Button(left, text="Save config", command=self._save_fields).grid(
-            row=len(FIELDS)+1, column=0, columnspan=3, sticky="ew", pady=(14, 4))
+        # ── Section: Log folder ──────────────────────────────────────────────
+        _section_label(left, "LOG FOLDER").pack(fill="x", pady=(14, 6))
 
-        # Log folder controls
-        self.log_root_var = tk.StringVar(value=str(SCRIPT_DIR / "logs"))
+        self.log_root_var    = tk.StringVar(value=str(SCRIPT_DIR / "logs"))
         self.auto_session_var = tk.BooleanVar(value=True)
 
-        log_row = len(FIELDS) + 2
-        ttk.Label(left, text="Log folder").grid(row=log_row, column=0, sticky="w", pady=2)
-        log_frame = ttk.Frame(left)
-        log_frame.grid(row=log_row, column=1, sticky="ew", padx=(6, 0), pady=2)
-        ttk.Entry(log_frame, textvariable=self.log_root_var, width=30).pack(side="left", fill="x", expand=True)
-        ttk.Button(log_frame, text="…", width=2,
-                   command=self._browse_log_folder).pack(side="left", padx=(2, 0))
-        ttk.Label(left, text="Where session logs are stored", foreground="gray").grid(
-            row=log_row, column=2, sticky="w", padx=(8, 0))
+        log_row_f = tk.Frame(left, bg=C["panel"])
+        log_row_f.pack(fill="x")
+        log_row_f.columnconfigure(0, weight=1)
+        tk.Entry(log_row_f, textvariable=self.log_root_var,
+                 bg=C["entry_bg"], fg=C["entry_fg"], relief="flat",
+                 insertbackground=C["text"], font=FONT_BODY).grid(
+            row=0, column=0, sticky="ew", ipady=4)
+        tk.Button(log_row_f, text="…", command=self._browse_log_folder,
+                  bg=C["card"], fg=C["text"], relief="flat",
+                  font=FONT_BODY, padx=6, cursor="hand2").grid(
+            row=0, column=1, padx=(3, 0))
 
-        ttk.Checkbutton(
-            left,
-            text="Create dated subfolder per start",
-            variable=self.auto_session_var
-        ).grid(row=log_row + 1, column=0, columnspan=3, sticky="w", pady=(2, 4))
+        ttk.Checkbutton(left, text="Create dated subfolder per session",
+                        variable=self.auto_session_var).pack(anchor="w", pady=(4, 0))
 
+        # ── Section: Dew-point thresholds ────────────────────────────────────
+        _section_label(left, "PROGI t_dp  [°C]").pack(fill="x", pady=(14, 6))
 
-        # ── Buttons ─────────────────────────────────────────────────────────
-        btn_frame = ttk.Frame(left, padding=(0, 6))
-        btn_frame.grid(row=log_row + 2, column=0, columnspan=3, sticky="ew")
-        btn_frame.columnconfigure(0, weight=1)
-        btn_frame.columnconfigure(1, weight=1)
-        btn_frame.columnconfigure(2, weight=1)
+        tdp_card = tk.Frame(left, bg=C["card"], padx=10, pady=8)
+        tdp_card.pack(fill="x")
 
-        self.btn_start = ttk.Button(btn_frame, text="▶  Start",
-                        command=self._start, style="Start.TButton")
-        self.btn_start.grid(row=0, column=0, sticky="ew", padx=(0, 3))
+        self.threshold_vars = {}
+        _tdp_defaults = {
+            "ROZTDP_T10_RH_MID": "0.20", "ROZTDP_T10_RH_EXT": "0.45",
+            "ROZTDP_T23_RH_MID": "0.20", "ROZTDP_T23_RH_EXT": "0.45",
+            "ROZTDP_T35_RH_MID": "0.20", "ROZTDP_T35_RH_EXT": "0.45",
+        }
+        for key, label, hint in THRESHOLD_FIELDS:
+            row_c = tk.Frame(tdp_card, bg=C["card"])
+            row_c.pack(fill="x", pady=2)
+            tk.Label(row_c, text=label, width=26, anchor="w",
+                     bg=C["card"], fg=C["text"], font=FONT_BODY).pack(side="left")
+            var = tk.StringVar(value=_tdp_defaults[key])
+            self.threshold_vars[key] = var
+            tk.Entry(row_c, textvariable=var, width=7,
+                     bg=C["entry_bg"], fg=C["entry_fg"], relief="flat",
+                     insertbackground=C["text"], font=FONT_BODY).pack(
+                side="left", ipady=3, padx=(0, 8))
+            tk.Label(row_c, text=hint,
+                     bg=C["card"], fg=C["muted"], font=FONT_SMALL).pack(side="left")
 
-        self.btn_stop = ttk.Button(btn_frame, text="■  Stop",
-                       command=self._stop, state="disabled")
-        self.btn_stop.grid(row=0, column=1, sticky="ew", padx=(3, 0))
+        # ── Save button ──────────────────────────────────────────────────────
+        _flat_button(left, "💾  Save config", self._save_fields,
+                     bg=C["card"], fg=C["text"], pady=7).pack(
+            fill="x", pady=(14, 0))
 
-        self.btn_diag = ttk.Button(btn_frame, text="🩺 Диагностика",
-                       command=self._diagnose)
-        self.btn_diag.grid(row=0, column=2, sticky="ew", padx=(3, 0))
+        # ── Control buttons ──────────────────────────────────────────────────
+        _section_label(left, "CONTROL").pack(fill="x", pady=(14, 8))
 
-        # Status label
-        self.status_var = tk.StringVar(value="Stopped")
-        ttk.Label(left, textvariable=self.status_var, foreground="gray").grid(
-            row=log_row + 3, column=0, columnspan=3, sticky="w", pady=(4, 0))
+        btn_row = tk.Frame(left, bg=C["panel"])
+        btn_row.pack(fill="x")
+        btn_row.columnconfigure(0, weight=1)
+        btn_row.columnconfigure(1, weight=1)
+        btn_row.columnconfigure(2, weight=1)
 
-        # Style for Start button
-        style = ttk.Style(self)
-        style.configure("Start.TButton", foreground="green")
+        self.btn_start = _flat_button(btn_row, "▶  Start", self._start,
+                                      bg=C["btn_start"], pady=8)
+        self.btn_start.grid(row=0, column=0, sticky="ew", padx=(0, 4))
+
+        self.btn_stop = _flat_button(btn_row, "■  Stop", self._stop,
+                                     bg=C["border"], fg=C["muted"], pady=8)
+        self.btn_stop.grid(row=0, column=1, sticky="ew", padx=(0, 4))
+        self.btn_stop.config(state="disabled",
+                             activebackground=C["border"])
+
+        self.btn_diag = _flat_button(btn_row, "🩺  Diagnose", self._diagnose,
+                                     bg=C["btn_diag"], pady=8)
+        self.btn_diag.grid(row=0, column=2, sticky="ew")
+
+        # ── Status pill ──────────────────────────────────────────────────────
+        status_row = tk.Frame(left, bg=C["panel"])
+        status_row.pack(fill="x", pady=(10, 4))
+        self._dot = tk.Label(status_row, text="●", font=("Segoe UI", 11),
+                             bg=C["panel"], fg=C["muted"])
+        self._dot.pack(side="left")
+        self.status_var = tk.StringVar(value="Disconnected")
+        tk.Label(status_row, textvariable=self.status_var,
+                 font=FONT_BODY, bg=C["panel"], fg=C["muted"]).pack(
+            side="left", padx=(4, 0))
 
         # ── Right panel — log ────────────────────────────────────────────────
-        right = ttk.Frame(self, padding=(0, 10, 10, 10))
-        right.grid(row=0, column=1, sticky="nsew")
-        right.rowconfigure(0, weight=0)
-        right.rowconfigure(1, weight=1)
-        right.columnconfigure(0, weight=1)
+        right_outer = tk.Frame(self, bg=C["bg"])
+        right_outer.grid(row=0, column=1, sticky="nsew", padx=(1, 0))
+        right_outer.rowconfigure(1, weight=1)
+        right_outer.columnconfigure(0, weight=1)
 
-        ttk.Label(right, text="Log output", font=("", 10, "bold")).grid(
-            row=0, column=0, sticky="w", pady=(0, 4))
+        log_header = tk.Frame(right_outer, bg=C["bg"], pady=10, padx=12)
+        log_header.grid(row=0, column=0, sticky="ew")
+        tk.Label(log_header, text="LOG OUTPUT", font=FONT_BOLD,
+                 bg=C["bg"], fg=C["accent"]).pack(side="left")
 
-        self.log_box = scrolledtext.ScrolledText(
-            right, state="disabled", width=80, height=35,
-            font=("Consolas", 9), wrap="word",
-            background="#1e1e1e", foreground="#d4d4d4",
-            insertbackground="white")
-        self.log_box.grid(row=1, column=0, sticky="nsew")
+        # Custom Text + flat Canvas scrollbar (no system scrollbar)
+        log_container = tk.Frame(right_outer, bg=C["log_bg"])
+        log_container.grid(row=1, column=0, sticky="nsew")
+        log_container.rowconfigure(0, weight=1)
+        log_container.columnconfigure(0, weight=1)
 
-        # Colour tags
-        self.log_box.tag_config("INFO",    foreground="#9cdcfe")
-        self.log_box.tag_config("ERROR",   foreground="#f44747")
-        self.log_box.tag_config("WARNING", foreground="#dcdcaa")
-        self.log_box.tag_config("EVENT",   foreground="#4ec9b0")
+        self.log_box = tk.Text(
+            log_container, state="normal",
+            font=FONT_MONO, wrap="word",
+            background=C["log_bg"], foreground="#cdd6f4",
+            insertbackground=C["text"],
+            borderwidth=0, relief="flat",
+            padx=12, pady=8,
+            selectbackground=C["card"],
+        )
+        self.log_box.grid(row=0, column=0, sticky="nsew")
 
-        # Allow Ctrl+C / Ctrl+A on disabled widget
+        # Flat scrollbar for log
+        log_vsb = tk.Canvas(log_container, bg=C["log_bg"],
+                            width=6, highlightthickness=0, bd=0)
+        log_vsb.grid(row=0, column=1, sticky="ns")
+
+        def _log_vsb_set(first, last):
+            first, last = float(first), float(last)
+            h = log_vsb.winfo_height()
+            y0 = int(first * h)
+            y1 = max(y0 + 24, int(last * h))
+            log_vsb.delete("thumb")
+            log_vsb.create_rectangle(
+                1, y0, 5, y1,
+                fill=C["border"], outline="", tags="thumb")
+
+        def _log_vsb_click(event):
+            h = log_vsb.winfo_height()
+            frac = event.y / h if h else 0
+            self.log_box.yview_moveto(frac)
+
+        def _log_vsb_drag(event):
+            h = log_vsb.winfo_height()
+            frac = event.y / h if h else 0
+            self.log_box.yview_moveto(frac)
+
+        log_vsb.bind("<Button-1>", _log_vsb_click)
+        log_vsb.bind("<B1-Motion>", _log_vsb_drag)
+        self.log_box.configure(yscrollcommand=_log_vsb_set)
+
+        self.log_box.tag_config("INFO",    foreground="#89dceb")
+        self.log_box.tag_config("ERROR",   foreground="#f38ba8")
+        self.log_box.tag_config("WARNING", foreground="#f9e2af")
+        self.log_box.tag_config("EVENT",   foreground="#a6e3a1")
+
         self.log_box.bind("<Control-c>", self._copy_log)
         self.log_box.bind("<Control-C>", self._copy_log)
         self.log_box.bind("<Control-a>", self._select_all_log)
         self.log_box.bind("<Control-A>", self._select_all_log)
+        # Block keyboard edits but allow selection/copy shortcuts
+        def _block_edit(e):
+            if e.state & 0x4:  # Ctrl held — allow Ctrl+C, Ctrl+A, etc.
+                return None
+            if e.keysym in ("Up", "Down", "Left", "Right",
+                            "Home", "End", "Prior", "Next"):
+                return None
+            return "break"
+        self.log_box.bind("<Key>", _block_edit)
 
-        log_btn_frame = ttk.Frame(right)
-        log_btn_frame.grid(row=2, column=0, sticky="ew", pady=(4, 0))
-        ttk.Button(log_btn_frame, text="Copy all",  command=self._copy_all_log).pack(side="right", padx=(4, 0))
-        ttk.Button(log_btn_frame, text="Save log as...", command=self._save_visible_log).pack(side="right", padx=(4, 0))
-        ttk.Button(log_btn_frame, text="Clear log", command=self._clear_log).pack(side="right")
+        log_toolbar = tk.Frame(right_outer, bg=C["bg"], pady=6, padx=8)
+        log_toolbar.grid(row=2, column=0, sticky="ew")
+        for txt, cmd in [
+            ("Copy all",  self._copy_all_log),
+            ("Save log…", self._save_visible_log),
+            ("Clear",     self._clear_log),
+        ]:
+            _flat_button(log_toolbar, txt, cmd,
+                         bg=C["card"], fg=C["text"],
+                         padx=10, pady=4, font=FONT_SMALL).pack(
+                side="right", padx=(4, 0))
+
+        # ── Bottom status bar ────────────────────────────────────────────────
+        bar = tk.Frame(self, bg=C["border"], height=24)
+        bar.grid(row=1, column=0, columnspan=2, sticky="ew")
+        self._bar_label = tk.Label(
+            bar, text="  Relay Controller  ·  disconnected",
+            font=FONT_SMALL, bg=C["border"], fg=C["muted"], anchor="w")
+        self._bar_label.pack(side="left", padx=8)
+        self._bar_time = tk.Label(
+            bar, text="", font=FONT_SMALL,
+            bg=C["border"], fg=C["muted"], anchor="e")
+        self._bar_time.pack(side="right", padx=8)
+        self._tick_clock()
+
+    def _tick_clock(self):
+        self._bar_time.config(text=datetime.now().strftime("%Y-%m-%d  %H:%M:%S  "))
+        self.after(1000, self._tick_clock)
+
+    def _set_status(self, text: str, color: str = None):
+        self.status_var.set(text)
+        col = color or C["muted"]
+        self._dot.config(fg=col)
+        for w in (self._dot,):
+            w.config(fg=col)
+        self._bar_label.config(text=f"  Relay Controller  ·  {text}")
 
     # --------------------------------------------------------------- ports --
     def _refresh_ports(self):
@@ -369,12 +651,21 @@ class App(tk.Tk):
         # LOG_ROOT_DIR is the stable user-chosen base; LOG_DIR is auto session dir
         if "LOG_ROOT_DIR" in cfg and cfg["LOG_ROOT_DIR"].strip():
             self.log_root_var.set(cfg["LOG_ROOT_DIR"].strip())
+        # Load per-range t_dp thresholds from .env
+        for key, var in self.threshold_vars.items():
+            if cfg.get(key, "").strip():
+                var.set(cfg[key].strip())
 
     def _save_fields(self, extra_cfg: dict | None = None, silent: bool = False):
         cfg = {k: v for k, v in load_env(ENV_FILE).items()}
         for key, var in self.vars.items():
             cfg[key] = var.get().strip()
         cfg["LOG_ROOT_DIR"] = self.log_root_var.get().strip()
+        # Save per-range t_dp thresholds
+        for key, var in self.threshold_vars.items():
+            val = var.get().strip()
+            if val:
+                cfg[key] = val
         if extra_cfg:
             cfg.update(extra_cfg)
         save_env(ENV_FILE, cfg)
@@ -383,10 +674,8 @@ class App(tk.Tk):
 
     # ----------------------------------------------------------------- log --
     def _log_line(self, text: str, tag: str = "INFO"):
-        self.log_box.config(state="normal")
         self.log_box.insert("end", text, tag)
         self.log_box.see("end")
-        self.log_box.config(state="disabled")
         if self.session_log_file:
             try:
                 with self.session_log_file.open("a", encoding="utf-8") as fh:
@@ -395,17 +684,15 @@ class App(tk.Tk):
                 pass
 
     def _clear_log(self):
-        self.log_box.config(state="normal")
         self.log_box.delete("1.0", "end")
-        self.log_box.config(state="disabled")
 
     def _copy_log(self, event=None):
         try:
             text = self.log_box.selection_get()
-            self.clipboard_clear()
-            self.clipboard_append(text)
         except tk.TclError:
-            pass
+            text = self.log_box.get("1.0", "end")  # nothing selected → copy all
+        self.clipboard_clear()
+        self.clipboard_append(text)
         return "break"
 
     def _select_all_log(self, event=None):
@@ -531,9 +818,11 @@ class App(tk.Tk):
         session_dir = self._prepare_session_dir()
         self._save_fields({"LOG_DIR": str(session_dir)}, silent=True)
         self._log_line(f"Session logs: {session_dir}\n", "EVENT")
-        self.btn_start.config(state="disabled")
+        self.btn_start.config(state="disabled",
+                              bg=C["border"], fg=C["muted"],
+                              activebackground=C["border"])
         self.btn_stop.config(state="disabled")
-        self.status_var.set("Starting...")
+        self._set_status("Starting…", C["yellow"])
         threading.Thread(target=self._start_after_reset, args=(port,), daemon=True).start()
 
     def _start_after_reset(self, port: str):
@@ -573,9 +862,13 @@ class App(tk.Tk):
             self._set_stopped()
             return
 
-        self.btn_start.config(state="disabled")
-        self.btn_stop.config(state="normal")
-        self.status_var.set("Running")
+        self.btn_start.config(state="disabled",
+                              bg=C["border"], fg=C["muted"],
+                              activebackground=C["border"])
+        self.btn_stop.config(state="normal",
+                             bg=C["btn_stop"], fg="#ffffff",
+                             activebackground=C["btn_stop"])
+        self._set_status("Running", C["green"])
 
         thread = threading.Thread(target=self._read_output, daemon=True)
         thread.start()
@@ -586,9 +879,13 @@ class App(tk.Tk):
         self._set_stopped()
 
     def _set_stopped(self):
-        self.btn_start.config(state="normal")
-        self.btn_stop.config(state="disabled")
-        self.status_var.set("Stopped")
+        self.btn_start.config(state="normal",
+                              bg=C["btn_start"], fg="#ffffff",
+                              activebackground=C["btn_start"])
+        self.btn_stop.config(state="disabled",
+                             bg=C["border"], fg=C["muted"],
+                             activebackground=C["border"])
+        self._set_status("Disconnected", C["muted"])
 
     def _read_output(self):
         # Читаем stdout воркера, если есть ошибки — выводим их явно
